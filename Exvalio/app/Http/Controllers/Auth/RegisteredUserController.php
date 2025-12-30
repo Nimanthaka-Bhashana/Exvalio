@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendOtpMail;
+use Carbon\Carbon;
+
 
 class RegisteredUserController extends Controller
 {
@@ -35,17 +39,52 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $otp = rand(100000, 999999);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'user',
+            'otp' => $otp,
+            'otp_expires_at' => Carbon::now()->addMinutes(10),
+            'is_verified' => false,
         ]);
 
-        event(new Registered($user));
+        Mail::to($user->email)->send(new SendOtpMail($otp));
 
-        Auth::login($user);
+        return redirect()->route('otp.verify')->with('email', $user->email);
 
-        return redirect(route('user.dashboard', absolute: false));
+    }
+    public function verifyOtp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'otp' => 'required|digits:6',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return back()->withErrors(['email' => 'User not found']);
+        }
+
+        if ($user->otp !== $request->otp) {
+            return back()->withErrors(['otp' => 'Invalid OTP']);
+        }
+
+        if (now()->greaterThan($user->otp_expires_at)) {
+            return back()->withErrors(['otp' => 'OTP expired']);
+        }
+
+        $user->update([
+            'is_verified' => true,
+            'otp' => null,
+            'otp_expires_at' => null,
+        ]);
+
+        auth()->login($user);
+
+        return redirect()->route('user.dashboard');
     }
 }
