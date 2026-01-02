@@ -20,7 +20,7 @@ Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('auth.login');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
@@ -37,6 +37,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/verify-otp', function () {
         return view('auth.verify-otp');
     })->name('otp.verify');
+
+    Route::get('/verify-otp/resend', [RegisteredUserController::class, 'resendOtp'])
+        ->name('otp.resend');
 
     Route::post('/verify-otp', [RegisteredUserController::class, 'verifyOtp'])
         ->name('otp.verify.submit');

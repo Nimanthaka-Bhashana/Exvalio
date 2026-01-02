@@ -53,9 +53,33 @@ class RegisteredUserController extends Controller
 
         Mail::to($user->email)->send(new SendOtpMail($otp));
 
-        return redirect()->route('otp.verify')->with('email', $user->email);
+        return redirect()->route('otp.verify')->with('email', $user->email)->with('success', 'OTP sent successfully');
 
     }
+    
+    public function resendOtp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return back()->withErrors(['email' => 'User not found']);
+        }
+
+        $otp = rand(100000, 999999);
+        $user->update([
+            'otp' => $otp,
+            'otp_expires_at' => Carbon::now()->addMinutes(10),
+        ]);
+
+        Mail::to($user->email)->send(new SendOtpMail($otp));
+
+        return redirect()->route('otp.verify')->with('email', $user->email)->with('success', 'OTP resent successfully');
+    }
+    
     public function verifyOtp(Request $request)
     {
         $request->validate([
@@ -79,12 +103,13 @@ class RegisteredUserController extends Controller
 
         $user->update([
             'is_verified' => true,
-            'otp' => null,
+            'email_verified_at' => now(),
+            'otp' => $request->otp,
             'otp_expires_at' => null,
         ]);
 
         auth()->login($user);
 
-        return redirect()->route('user.dashboard');
+        return redirect()->route('user.dashboard')->with('success', 'Email verified successfully and you can now login.');
     }
 }
