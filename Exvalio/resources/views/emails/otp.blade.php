@@ -1,0 +1,7 @@
+
+<h2>Exvalio Email Verification</h2>
+<p>Your OTP code is:</p>
+
+<h1 style="letter-spacing:3px;">{{ $otp }}</h1>
+
+<p>This OTP will expire in 10 minutes.</p>
