@@ -1,124 +1,120 @@
 <x-guest-layout title="Verify OTP">
- <body class="min-h-screen flex items-center justify-center p-4 overflow-hidden relative">
-  <div class="absolute inset-0 bg-gradient-to-br from-cyan-400 via-blue-500 to-orange-400"></div>
-  <div class="absolute inset-0 bg-gradient-to-tl from-orange-300 via-transparent to-cyan-300 opacity-70"></div>
-  <div class="sparkle absolute top-20 left-20 w-2 h-2 bg-white rounded-full opacity-80"></div>
-  <div class="sparkle absolute top-40 right-32 w-3 h-3 bg-white rounded-full opacity-60"></div>
-  <div class="sparkle absolute bottom-32 left-40 w-2 h-2 bg-yellow-200 rounded-full opacity-90"></div>
-  <div class="sparkle absolute top-1/4 right-20 w-1.5 h-1.5 bg-white rounded-full opacity-70"></div>
-  <div class="sparkle absolute bottom-1/4 left-1/4 w-2.5 h-2.5 bg-cyan-200 rounded-full opacity-80"></div>
-  <div class="sparkle absolute top-1/3 left-1/2 w-1 h-1 bg-orange-200 rounded-full opacity-60"></div>
-  <div class="absolute top-0 left-0 w-96 h-96 bg-cyan-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-  <div class="absolute bottom-0 right-0 w-96 h-96 bg-orange-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 1s;"></div>
+    <body class="min-h-screen flex items-center justify-center p-4 overflow-hidden relative">
 
-  <div class="relative z-10 w-full max-w-md">
-   <div class="text-center mb-2">
-    <div class="relative inline-block mb-2">
-     <img src="{{ asset('images/logo2.png') }}" alt="Exvalio Logo" class="w-20 h-20 mx-auto"/>
-    </div>
-    <h1 class="text-4xl font-bold text-gray-800 mb-2 drop-shadow-lg" style="font-family: system-ui, -apple-system, sans-serif; letter-spacing: -0.02em;">Exvalio</h1>
-   </div>
+        <!-- Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-100 via-blue-200 to-white"></div>
+        <div class="absolute inset-0 bg-gradient-to-tl from-white via-transparent to-blue-100 opacity-80"></div>
 
-   <div class="glass-card rounded-3xl p-6 shadow-2xl">
-    <h2 class="text-3xl font-bold text-center text-gray-800 mb-1">Verify Your Email</h2>
-    <p class="text-center text-sm text-gray-700 mb-4">Enter the 6-digit OTP sent to your email</p>
+        <!-- Sparkles -->
+        <div class="absolute top-20 left-20 w-2 h-2 bg-white rounded-full opacity-70"></div>
+        <div class="absolute top-40 right-32 w-2.5 h-2.5 bg-blue-200 rounded-full opacity-60"></div>
+        <div class="absolute bottom-32 left-40 w-2 h-2 bg-blue-300 rounded-full opacity-80"></div>
+        <div class="absolute top-1/4 right-20 w-1.5 h-1.5 bg-white rounded-full opacity-70"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-2.5 h-2.5 bg-blue-200 rounded-full opacity-80"></div>
 
-    <form method="POST" action="{{ route('otp.verify.submit') }}" class="space-y-4" id="otpForm">
-     @csrf
-     <input type="hidden" name="email" value="{{ session('email') }}">
+        <!-- Glow -->
+        <div class="absolute top-0 left-0 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
 
-     @if( session('success'))
-      <div class="text-green-600 text-center mb-2">{{ session('success') }}</div>
-     @endif
+        <!-- Card -->
+        <div class="relative z-10 w-full max-w-md">
 
-     <div class="relative">
-      <div class="input-glass rounded-2xl flex items-center px-4 py-3 shadow-lg bg-black/20">
-       <div class="flex-1 grid grid-cols-6 gap-2">
-        <input type="text" inputmode="numeric" maxlength="1" class="otp-box text-center text-xl bg-white/70 rounded-xl h-12 outline-none focus:ring-2 focus:ring-cyan-400" />
-        <input type="text" inputmode="numeric" maxlength="1" class="otp-box text-center text-xl bg-white/70 rounded-xl h-12 outline-none focus:ring-2 focus:ring-cyan-400" />
-        <input type="text" inputmode="numeric" maxlength="1" class="otp-box text-center text-xl bg-white/70 rounded-xl h-12 outline-none focus:ring-2 focus:ring-cyan-400" />
-        <input type="text" inputmode="numeric" maxlength="1" class="otp-box text-center text-xl bg-white/70 rounded-xl h-12 outline-none focus:ring-2 focus:ring-cyan-400" />
-        <input type="text" inputmode="numeric" maxlength="1" class="otp-box text-center text-xl bg-white/70 rounded-xl h-12 outline-none focus:ring-2 focus:ring-cyan-400" />
-        <input type="text" inputmode="numeric" maxlength="1" class="otp-box text-center text-xl bg-white/70 rounded-xl h-12 outline-none focus:ring-2 focus:ring-cyan-400" />
-       </div>
-       <input type="hidden" name="otp" id="otpHidden" />
-      </div>
-      <x-input-error :messages="$errors->get('otp')" class="mt-2" style="color: red;" />
-     </div>
+            <!-- Logo -->
+            <div class="text-center mb-4">
+                <img src="{{ asset('images/logo2.png') }}" alt="Exvalio Logo" class="w-20 h-20 mx-auto mb-2">
+                <h1 class="text-4xl font-bold text-blue-700 tracking-tight">Exvalio</h1>
+            </div>
 
-     <button type="submit" class="w-full bg-gradient-to-r from-cyan-400 via-blue-400 to-orange-400 text-white font-bold text-xl py-3 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200">Verify OTP</button>
-    </form>
+            <!-- Glass Card -->
+            <div class="bg-white/70 backdrop-blur-xl rounded-3xl p-6 shadow-2xl">
 
-    <form method="GET" action="{{ route('otp.resend') }}" class="mt-3 text-center">
-     @csrf
-     <input type="hidden" name="email" value="{{ session('email') }}">
-     <button type="submit" class="text-sm font-semibold text-gray-700 hover:text-gray-900 underline">Resend OTP</button>
-    </form>
+                <h2 class="text-3xl font-bold text-center text-blue-700 mb-1">
+                    Verify Your Email
+                </h2>
+                <p class="text-center text-sm text-gray-700 mb-5">
+                    Enter the 6-digit OTP sent to your email
+                </p>
 
-    <div class="flex justify-center space-x-2 mt-4 mb-2">
-     <div class="w-2 h-2 rounded-full bg-gray-400"></div>
-     <div class="w-2 h-2 rounded-full bg-gray-500"></div>
-     <div class="w-2 h-2 rounded-full bg-gray-400"></div>
-    </div>
-   </div>
-  </div>
- <script>
-  document.addEventListener('DOMContentLoaded', function () {
-   var boxes = Array.prototype.slice.call(document.querySelectorAll('.otp-box'));
-   var hidden = document.getElementById('otpHidden');
-   var form = document.getElementById('otpForm');
+                <form method="POST" action="{{ route('otp.verify.submit') }}" class="space-y-4" id="otpForm">
+                    @csrf
+                    <input type="hidden" name="email" value="{{ session('email') }}">
+                    <input type="hidden" name="otp" id="otpHidden">
 
-   function syncHidden() {
-    if (!hidden) return;
-    hidden.value = boxes.map(function(b){ return (b.value || '').trim(); }).join('');
-   }
+                    @if(session('success'))
+                        <div class="text-green-600 text-center text-sm mb-2">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
-   function focusBox(i) {
-    if (i >= 0 && i < boxes.length) boxes[i].focus();
-   }
+                    <!-- OTP Boxes -->
+                    <div class="grid grid-cols-6 gap-2">
+                        @for ($i = 0; $i < 6; $i++)
+                            <input type="text" inputmode="numeric" maxlength="1"
+                                   class="otp-box h-12 text-center text-xl rounded-xl
+                                          bg-white shadow outline-none
+                                          focus:ring-2 focus:ring-blue-500">
+                        @endfor
+                    </div>
 
-   boxes.forEach(function (box, idx) {
-    box.addEventListener('input', function () {
-     box.value = box.value.replace(/\D/g, '').slice(0, 1);
-     if (box.value && idx < boxes.length - 1) focusBox(idx + 1);
-     syncHidden();
-    });
+                    <x-input-error :messages="$errors->get('otp')" class="mt-2" />
 
-    box.addEventListener('keydown', function (e) {
-     if (e.key === 'Backspace' && !box.value && idx > 0) {
-      e.preventDefault();
-      boxes[idx - 1].value = '';
-      focusBox(idx - 1);
-      syncHidden();
-     } else if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      focusBox(idx - 1);
-     } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      focusBox(idx + 1);
-     }
-    });
-   });
+                    <!-- Verify Button -->
+                    <button type="submit"
+                            class="w-full py-3 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-700
+                                   text-white font-bold text-lg shadow-lg
+                                   hover:scale-[1.02] transition">
+                        Verify OTP
+                    </button>
+                </form>
 
-   if (boxes[0]) {
-    boxes[0].addEventListener('paste', function (e) {
-     var data = (e.clipboardData || window.clipboardData).getData('text');
-     if (!data) return;
-     var digits = data.replace(/\D/g, '').slice(0, boxes.length).split('');
-     if (digits.length > 1) e.preventDefault();
-     boxes.forEach(function (b, i) { b.value = digits[i] || ''; });
-     syncHidden();
-     focusBox(Math.min(digits.length, boxes.length - 1));
-    });
-   }
+                <!-- Resend OTP -->
+                <form method="GET" action="{{ route('otp.resend') }}" class="mt-3 text-center">
+                    <input type="hidden" name="email" value="{{ session('email') }}">
+                    <button type="submit"
+                            class="text-sm font-semibold text-blue-700 hover:underline">
+                        Resend OTP
+                    </button>
+                </form>
 
-   if (form) {
-    form.addEventListener('submit', function(){ syncHidden(); });
-   }
+            </div>
+        </div>
 
-   focusBox(0);
-   syncHidden();
-  });
- </script>
- </body>
+        <!-- OTP JS -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const boxes = Array.from(document.querySelectorAll('.otp-box'));
+                const hidden = document.getElementById('otpHidden');
+
+                function sync() {
+                    hidden.value = boxes.map(b => b.value || '').join('');
+                }
+
+                boxes.forEach((box, i) => {
+                    box.addEventListener('input', () => {
+                        box.value = box.value.replace(/\D/g, '').slice(0, 1);
+                        if (box.value && i < boxes.length - 1) boxes[i + 1].focus();
+                        sync();
+                    });
+
+                    box.addEventListener('keydown', e => {
+                        if (e.key === 'Backspace' && !box.value && i > 0) {
+                            boxes[i - 1].focus();
+                        }
+                    });
+
+                    box.addEventListener('paste', e => {
+                        const data = (e.clipboardData || window.clipboardData).getData('text');
+                        const digits = data.replace(/\D/g, '').slice(0, 6).split('');
+                        digits.forEach((d, idx) => boxes[idx].value = d || '');
+                        sync();
+                        e.preventDefault();
+                    });
+                });
+
+                boxes[0]?.focus();
+                sync();
+            });
+        </script>
+
+    </body>
 </x-guest-layout>
