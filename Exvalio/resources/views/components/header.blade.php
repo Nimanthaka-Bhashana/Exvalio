@@ -17,15 +17,15 @@
                 <nav class="hidden lg:flex items-center ml-8 space-x-1">
                     @php
                         $navLinks = [
-                            ['name' => 'Dashboard', 'route' => 'user.dashboard', 'active'=> true , 'url' => route('user.dashboard')],
-                            ['name' => 'Add Item',  'route' => 'items.create',   'active' => false, 'url' => '#'],
-                            ['name' => 'My Items',  'route' => 'items.index',    'active' => false, 'url' => '#'],
-                            ['name' => 'Matches',   'route' => 'matches',        'active' => false, 'url' => '#'],
+                            ['name' => 'Dashboard', 'route' => 'user.dashboard', 'url' => route('user.dashboard')],
+                            ['name' => 'Add Item',  'route' => 'user.item.add',  'url' => route('user.item.add')],
+                            ['name' => 'My Items',  'route' => 'items.index',    'url' => '#'],
+                            ['name' => 'Matches',   'route' => 'matches',        'url' => '#'],
                         ];
                     @endphp
 
                     @foreach($navLinks as $link)
-                       <a href="{{ $link['url'] ?? (Route::has($link['route']) ? route($link['route']) : '#') }}" class="px-4 py-2 rounded-xl text-sm font-medium transition-colors {{ $link['active'] ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-50 hover:text-blue-600' }}">
+                       <a href="{{ $link['url'] }}" class="px-4 py-2 rounded-xl text-sm font-medium transition-colors {{ request()->routeIs($link['route']) ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-50 hover:text-blue-600' }}">
                             {{ $link['name'] }}
                         </a>
                     @endforeach
