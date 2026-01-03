@@ -94,11 +94,9 @@
                     <x-input-error :messages="$errors->get('password_confirmation')" />
 
                     <!-- Register Button -->
-                    <button type="submit"
-                            class="w-full py-3 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-700
-                                   text-white font-bold text-lg shadow-lg hover:scale-[1.02] transition">
+                    <x-button>
                         Create Account
-                    </button>
+                    </x-button>
                 </form>
 
                 <!-- Login Link -->
