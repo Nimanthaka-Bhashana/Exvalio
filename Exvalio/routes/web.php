@@ -27,6 +27,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     
     Route::get('/item/add', [UserItemController::class, 'index'])->name('user.item.add');
     Route::post('/item/store', [UserItemController::class, 'store'])->name('user.item.store');
+
+    Route::get('/marketplace', [UserItemController::class, 'marketplace'])->name('user.marketplace');
 });
 
 

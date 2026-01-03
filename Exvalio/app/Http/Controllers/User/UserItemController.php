@@ -12,6 +12,11 @@ class UserItemController extends Controller
         return view('user.add-item');
     }
     
+    public function marketplace()
+    {
+        return view('user.marketplace');
+    }
+    
     public function store(Request $request)
     {
         // Handle item storage logic here

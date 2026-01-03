@@ -17,7 +17,8 @@
                 <nav class="hidden lg:flex items-center ml-8 space-x-1">
                     @php
                         $navLinks = [
-                            ['name' => 'Dashboard', 'route' => 'user.dashboard', 'url' => route('user.dashboard')],
+                            ['name' => 'Dashboard', 'route' => 'user.dashboard', 'url' => route('user.dashboard')],       
+                            ['name' => 'Marketplace', 'route' => 'user.marketplace', 'url' => route('user.marketplace')],
                             ['name' => 'Add Item',  'route' => 'user.item.add',  'url' => route('user.item.add')],
                             ['name' => 'My Items',  'route' => 'items.index',    'url' => '#'],
                             ['name' => 'Matches',   'route' => 'matches',        'url' => '#'],
