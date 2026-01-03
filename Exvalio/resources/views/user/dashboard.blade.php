@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="Dashboard">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
         @for ($i = 1; $i <= 4; $i++)
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4">

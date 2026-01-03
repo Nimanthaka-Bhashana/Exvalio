@@ -8,22 +8,24 @@
                 </button>
                 
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 bg-blue-600 rounded-lg shadow-sm shadow-blue-200"></div>
-                    <span class="text-lg font-bold text-slate-900 hidden sm:block">Exchange<span class="text-blue-600">Hub</span></span>
+                    <!-- logo placeholder -->
+                    <div class="w-20 h-20 rounded-lg flex items-center justify-center">
+                        <img src="{{ asset('images/logoExvalio.svg') }}" alt="Exvalio Logo" class="w-16 h-16">
+                    </div>
                 </div>
 
                 <nav class="hidden lg:flex items-center ml-8 space-x-1">
                     @php
                         $navLinks = [
-                            ['name' => 'Dashboard', 'route' => 'dashboard', 'active' => request()->routeIs('user.dashboard')],
-                            ['name' => 'Add Item', 'route' => 'items.create', 'active' => false],
-                            ['name' => 'My Items', 'route' => 'items.index', 'active' => false],
-                            ['name' => 'Matches', 'route' => 'matches', 'active' => false],
+                            ['name' => 'Dashboard', 'route' => 'user.dashboard', 'active'=> true , 'url' => route('user.dashboard')],
+                            ['name' => 'Add Item',  'route' => 'items.create',   'active' => false, 'url' => '#'],
+                            ['name' => 'My Items',  'route' => 'items.index',    'active' => false, 'url' => '#'],
+                            ['name' => 'Matches',   'route' => 'matches',        'active' => false, 'url' => '#'],
                         ];
                     @endphp
 
                     @foreach($navLinks as $link)
-                        <a href="#" class="px-4 py-2 rounded-xl text-sm font-medium transition-colors {{ $link['active'] ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-50 hover:text-blue-600' }}">
+                       <a href="{{ $link['url'] ?? (Route::has($link['route']) ? route($link['route']) : '#') }}" class="px-4 py-2 rounded-xl text-sm font-medium transition-colors {{ $link['active'] ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-50 hover:text-blue-600' }}">
                             {{ $link['name'] }}
                         </a>
                     @endforeach
