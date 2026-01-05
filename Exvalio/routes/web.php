@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Inspector\InspectorDashboardController;
 use App\Http\Controllers\User\UserDashboardController;
+use App\Http\Controllers\User\UserItemController;
 
 
 Route::get('/', function () {
@@ -22,8 +23,12 @@ Route::middleware(['auth', 'role:inspector'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/user/dashboard', [UserDashboardController::class, 'index'])
-        ->name('user.dashboard');
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+    
+    Route::get('/item/add', [UserItemController::class, 'index'])->name('user.item.add');
+    Route::post('/item/store', [UserItemController::class, 'store'])->name('user.item.store');
+
+    Route::get('/marketplace', [UserItemController::class, 'marketplace'])->name('user.marketplace');
 });
 
 
